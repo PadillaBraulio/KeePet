@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KeePet</string>
+    <string name="google_map_key">AIzaSyD3Bg5aUAR30ooRa1Gjyvig3PaVjyv1KpA</string>
 </resources>
