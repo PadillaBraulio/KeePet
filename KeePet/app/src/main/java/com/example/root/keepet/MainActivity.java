@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HOME, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HOME, 17));
 
         mypolyline  = mMap.addPolyline(new PolylineOptions()
                 .add(this.UBICATION_ARRAY[0])
