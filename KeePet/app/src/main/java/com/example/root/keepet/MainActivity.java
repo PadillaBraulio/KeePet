@@ -24,22 +24,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String CLASSNAME = "MAINACTIVITY";
     private static final LatLng HOME = new LatLng(14.5411093, -90.4260691);
+    private static final LatLng WALKER = new LatLng(14.540851714521105,-90.42498940194491);
     private static final LatLng [] UBICATION_ARRAY =
-            {
-                    new LatLng(14.541587849086847,-90.42629420757294),
-                    new LatLng(14.54110139129484,-90.42663261283451),
-                    new LatLng(14.540670406418046,-90.42668625701481),
-                    new LatLng(14.54023942070038,-90.42677745212131),
-                    new LatLng(14.53985473505263,-90.42677253462898),
-                    new LatLng(14.539917046401229,-90.42757719733345),
-                    new LatLng(14.539989742952377,-90.42812436797249),
-                    new LatLng(14.540862099700234,-90.4279634354316),
-                    new LatLng(14.540664781213518,-90.42671889044868),
-                    new LatLng(14.541100958685167,-90.42657941557991),
-                    new LatLng(14.5411093,-90.4260691),
-            };
-
-
+        {
+                new LatLng(14.541587849086847,-90.42629420757294),
+                new LatLng(14.54110139129484,-90.42663261283451),
+                new LatLng(14.540670406418046,-90.42668625701481),
+                new LatLng(14.54023942070038,-90.42677745212131),
+                new LatLng(14.53985473505263,-90.42677253462898),
+                new LatLng(14.539917046401229,-90.42757719733345),
+                new LatLng(14.539989742952377,-90.42812436797249),
+                new LatLng(14.540862099700234,-90.4279634354316),
+                new LatLng(14.540664781213518,-90.42671889044868),
+                new LatLng(14.541100958685167,-90.42657941557991),
+                new LatLng(14.5411093,-90.4260691),
+        };
     private GoogleMap mMap;
     private ImageButton iniciar;
     private ImageButton keepers;
@@ -82,11 +81,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions()
                         .position(HOME)
                         .title("Home")
+                        .snippet("This is your ubication")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.user))
         );
         myMarker = mMap.addMarker(new MarkerOptions()
                 .position(this.UBICATION_ARRAY[0])
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.dog)));
+        mMap.addMarker(new MarkerOptions()
+                        .position(WALKER)
+                        .title("Walker Available")
+                        .snippet("Braulio Padilla, Raiting 88")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.image))
+        );
 
     }
 
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(count < this.UBICATION_ARRAY.length )
         {
-            mypolyline.setPoints(Arrays.asList(this.UBICATION_ARRAY).subList(0,count + 1));
+            mypolyline.setPoints(Arrays.asList(this.UBICATION_ARRAY).subList(0, count + 1));
             myMarker.setPosition(this.UBICATION_ARRAY[count]);
             count = count + 1;
 
