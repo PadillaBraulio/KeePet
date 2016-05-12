@@ -1,13 +1,10 @@
 package com.example.root.keepet;
 
-import android.app.ActionBar;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,11 +14,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, Button.OnClickListener {
+import java.util.Arrays;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback , ImageButton.OnClickListener{
 
 
+    private static final String CLASSNAME = "MAINACTIVITY";
     private static final LatLng HOME = new LatLng(14.5411093, -90.4260691);
     private static final LatLng [] UBICATION_ARRAY =
             {
@@ -40,10 +41,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     private GoogleMap mMap;
-    private static final String CLASSNAME = "MAINACTIVITY";
-    private Button iniciar;
-    private Button keepers;
+    private ImageButton iniciar;
+    private ImageButton keepers;
+    private Polyline mypolyline;
+    private Marker myMarker;
 
+    private int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        iniciar = (Button)findViewById(R.id.iniciar);
-        keepers = (Button)findViewById(R.id.keepers);
+        iniciar = (ImageButton) findViewById(R.id.iniciar);
+        keepers = (ImageButton) findViewById(R.id.keepers);
 
         iniciar.setOnClickListener(this);
         keepers.setOnClickListener(this);
@@ -64,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HOME, 16));
+
+        mypolyline  = mMap.addPolyline(new PolylineOptions()
+                .add(this.UBICATION_ARRAY[0])
+                .color(Color.RED)
+                .width(5f));
+
         addMarkers();
 
     }
@@ -75,15 +84,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .title("Home")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.user))
         );
+        myMarker = mMap.addMarker(new MarkerOptions()
+                .position(this.UBICATION_ARRAY[0])
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.dog)));
 
     }
 
+
+    public void writePolylines()
+    {
+
+        if(count < this.UBICATION_ARRAY.length )
+        {
+            mypolyline.setPoints(Arrays.asList(this.UBICATION_ARRAY).subList(0,count + 1));
+            myMarker.setPosition(this.UBICATION_ARRAY[count]);
+            count = count + 1;
+
+        }
+    }
+
+
     @Override
     public void onClick(View v) {
+
         switch (v.getId())
         {
             case R.id.iniciar:
-
+                writePolylines();
                 break;
             case R.id.keepers:
 
@@ -91,4 +118,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         }
     }
+
 }
