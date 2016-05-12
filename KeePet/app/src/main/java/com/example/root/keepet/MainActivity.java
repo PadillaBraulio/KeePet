@@ -1,7 +1,13 @@
 package com.example.root.keepet;
 
+import android.app.ActionBar;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,13 +17,32 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, Button.OnClickListener {
 
 
     private static final LatLng HOME = new LatLng(14.5411093, -90.4260691);
-    private GoogleMap mMap;
+    private static final LatLng [] UBICATION_ARRAY =
+            {
+                    new LatLng(14.541587849086847,-90.42629420757294),
+                    new LatLng(14.54110139129484,-90.42663261283451),
+                    new LatLng(14.540670406418046,-90.42668625701481),
+                    new LatLng(14.54023942070038,-90.42677745212131),
+                    new LatLng(14.53985473505263,-90.42677253462898),
+                    new LatLng(14.539917046401229,-90.42757719733345),
+                    new LatLng(14.539989742952377,-90.42812436797249),
+                    new LatLng(14.540862099700234,-90.4279634354316),
+                    new LatLng(14.540664781213518,-90.42671889044868),
+                    new LatLng(14.541100958685167,-90.42657941557991),
+                    new LatLng(14.5411093,-90.4260691),
+            };
 
+
+    private GoogleMap mMap;
+    private static final String CLASSNAME = "MAINACTIVITY";
+    private Button iniciar;
+    private Button keepers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +51,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        iniciar = (Button)findViewById(R.id.iniciar);
+        keepers = (Button)findViewById(R.id.keepers);
+
+        iniciar.setOnClickListener(this);
+        keepers.setOnClickListener(this);
+
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HOME, 16));
         addMarkers();
+
     }
     public void addMarkers()
     {
@@ -43,5 +76,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.user))
         );
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.iniciar:
+
+                break;
+            case R.id.keepers:
+
+                break;
+
+        }
     }
 }
